@@ -1,0 +1,47 @@
+application:
+  name: Portable Flight Display
+  log_level: INFO
+
+location:
+  provider: gpsd                 # gpsd | manual
+  latitude: 54.815839              # Dublin example; used by manual provider
+  longitude: -7.834284
+  altitude_m: null
+  gpsd_host: 127.0.0.1
+  gpsd_port: 2947
+  stale_after_seconds: 60
+
+flight_provider:
+  provider: flightaware         # mock | flightaware | airplanes_live | adsb_lol | local_adsb
+  base_url: https://aeroapi.flightaware.com/aeroapi
+  request_timeout_seconds: 12
+  max_pages: 1
+  max_results: 15
+  enrich_operator_names: true  # FlightAware-only; each distinct operator may incur an extra API request
+  airplanes_live_base_url: https://api.airplanes.live/v2
+  adsb_lol_base_url: https://api.adsb.lol/v2
+  adsb_lol_api_key: null        # Optional; set ADSB_LOL_API_KEY in .env instead
+  local_adsb_aircraft_json_path: /run/readsb/aircraft.json
+
+polling:
+  interval_seconds: 5            # Local receiver; 5 seconds is a sensible starting point
+
+detection:
+  search_radius_km: 50
+  overhead_radius_km: 5
+  max_position_age_seconds: 120
+  minimum_altitude_ft: 500
+  maximum_altitude_ft: 45000
+
+display:
+  type: desktop                  # desktop | led | console
+  max_aircraft: 8
+  led_rows: 32
+  led_cols: 64
+  led_chain_length: 1
+  led_parallel: 1
+  led_brightness: 45
+  led_font_path: /home/pi/rpi-rgb-led-matrix/fonts/5x8.bdf
+
+storage:
+  sqlite_path: data/flights.db

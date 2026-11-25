@@ -1,0 +1,3 @@
+-e .[dev,desktop]
+# Raspberry Pi extras (install on the Pi only):
+# pip install -e ".[gps,led]"

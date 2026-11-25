@@ -1,0 +1,16 @@
+[Unit]
+Description=Portable Flight Display
+After=network-online.target gpsd.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/opt/portable-flight-display
+EnvironmentFile=-/opt/portable-flight-display/.env
+ExecStart=/opt/portable-flight-display/.venv/bin/pfd --config /opt/portable-flight-display/config/config.yaml --display led
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
